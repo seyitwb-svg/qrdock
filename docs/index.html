@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QRDock — QR codes that stay editable after printing</title>
+<meta name="description" content="Self-hosted QR code generator. Every code is a short link you control — retarget it anytime, track scans, export PNG/SVG. MIT, one Docker container.">
+<link rel="canonical" href="https://seyitwb-svg.github.io/qrdock/">
+<style>
+body{font-family:system-ui,-apple-system,sans-serif;max-width:760px;margin:0 auto;padding:48px 20px;color:#1a1a2e;line-height:1.6}
+h1{font-size:2.1em;line-height:1.2;margin-bottom:8px}
+.sub{color:#555;font-size:1.15em;margin-bottom:28px}
+code{background:#f2f2f7;padding:2px 7px;border-radius:5px;font-size:.92em}
+pre{background:#16162a;color:#e8e8f0;padding:16px 18px;border-radius:10px;overflow:auto;font-size:.9em}
+.btn{display:inline-block;padding:12px 22px;border-radius:9px;text-decoration:none;font-weight:600;margin:4px 8px 4px 0}
+.p{background:#3f5efb;color:#fff}.s{border:1.5px solid #3f5efb;color:#3f5efb}
+ul{padding-left:22px}li{margin:7px 0}
+.small{color:#777;font-size:.85em;margin-top:36px;border-top:1px solid #eee;padding-top:18px}
+</style></head><body>
+<h1>QR codes that stay editable <em>after</em> you print them.</h1>
+<p class="sub">QRDock is a self-hosted QR generator where every code is a short link <b>you</b> control. Print it, then change the destination whenever you want — no reprint, no subscription, no account wall.</p>
+<p>
+<a class="btn p" href="https://github.com/seyitwb-svg/qrdock">Get the code (MIT)</a>
+<a class="btn s" href="https://github.com/seyitwb-svg/grand-line-fleet/blob/main/LIVE-URLS.txt">Live demo &amp; shop</a>
+</p>
+<h2>Why</h2>
+<ul>
+<li><b>Retargetable:</b> change a printed code's destination anytime — the QR never goes stale</li>
+<li><b>Scan analytics:</b> per-link counts and a 14-day chart</li>
+<li><b>PNG + SVG export</b>, plus an instant anonymous endpoint <code>/qr.png?text=...</code></li>
+<li><b>Tiny:</b> Python + FastAPI + SQLite, ~50 MB RAM, one <code>docker run</code></li>
+<li><b>MIT:</b> read it, audit it, change it, ship it</li>
+</ul>
+<h2>Deploy in one command</h2>
+<pre>docker build -t qrdock .
+docker run -d -p 8000:8000 -v qrdock-data:/data qrdock</pre>
+<p>Open <code>http://localhost:8000</code>, register, create a link, print the QR — retarget it forever.</p>
+<p class="small">QRDock is the free member of the <a href="https://github.com/seyitwb-svg/grand-line-fleet">Grand Line fleet</a> — 20 production micro-SaaS tools (feedback boards, forms, status pages, booking, analytics) sold as a one-time source bundle with KYC-free crypto checkout.</p>
+</body></html>
