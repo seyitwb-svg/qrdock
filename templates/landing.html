@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="hero-glow"></div>
+  <p class="eyebrow">{{ product.name }}</p>
+  <h1>{{ product.tagline }}</h1>
+  <p class="sub">{{ product.sub }}</p>
+  <div class="hero-cta">
+    <a class="btn" href="/register">Try it free</a>
+    <a class="btn ghost" href="/pricing">See pricing</a>
+  </div>
+</section>
+
+<section class="shot-wrap">
+  <div class="frame">
+    <div class="frame-bar"><span></span><span></span><span></span></div>
+    <img class="shot" src="/static/dash.png" alt="{{ product.name }} dashboard" loading="lazy">
+  </div>
+</section>
+
+{% if product.quotes %}
+<section class="quotes">
+  <h2>People are hitting this wall right now</h2>
+  {% for q in product.quotes %}
+  <blockquote>
+    <p>&ldquo;{{ q.text }}&rdquo;</p>
+    <cite><a href="{{ q.url }}" rel="nofollow noopener">{{ q.source }}</a></cite>
+  </blockquote>
+  {% endfor %}
+</section>
+{% endif %}
+
+<section class="features">
+  {% for f in product.features %}
+  <div class="feature">
+    <div class="f-dot"></div>
+    <h3>{{ f.title }}</h3>
+    <p>{{ f.text }}</p>
+  </div>
+  {% endfor %}
+</section>
+
+<section class="cta">
+  <div class="cta-band">
+    <h2>{{ product.cta }}</h2>
+    <a class="btn" href="/register">Create your account</a>
+    {% if product.pricing_note %}<p class="cta-note">{{ product.pricing_note }}</p>{% endif %}
+    <p class="cta-note">Free plan included · no card needed</p>
+  </div>
+</section>
+{% endblock %}

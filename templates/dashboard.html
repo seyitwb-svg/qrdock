@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — {{ product.name }}{% endblock %}
+{% block content %}
+<div class="dash-head">
+  <h1>Dashboard</h1>
+  <span class="pill">plan: <b>{{ user.plan }}</b></span>
+  {% if user.plan == 'free' %}<a class="btn btn-sm" href="/pricing">Upgrade</a>{% endif %}
+</div>
+{% if core_html %}
+  {{ core_html | safe }}
+{% else %}
+<div class="card">
+  <p>{{ product.core_placeholder | default("Your workspace is ready.") }}</p>
+</div>
+{% endif %}
+<div class="card">
+  <h2>Notifications</h2>
+  <form method="post" action="/app/notify-url" class="inline-form">
+    <input type="hidden" name="csrf" value="{{ csrf }}">
+    <input name="url" placeholder="Webhook URL (Slack/Discord incoming hook)"
+           value="{{ user.notify_url or '' }}" maxlength="300">
+    <button class="btn" type="submit">Save</button>
+  </form>
+  <p class="dim">We POST a short text to this URL on key events (new submissions, signups, bookings). Leave empty to disable.</p>
+</div>
+{% if fleet_url %}
+<p class="dim" style="margin:1.5rem 0 .5rem">Part of the Grand Line toolkit —
+  <a href="{{ fleet_url }}" target="_blank" rel="noopener">20 micro-tools for freelancers &amp; indie makers</a>.</p>
+{% endif %}
+{% if events %}
+<div class="card">
+  <h2>Recent activity</h2>
+  <table>
+    {% for e in events %}
+    <tr><td class="dim">{{ e.at[:16] }}</td><td><span class="badge">{{ e.kind }}</span></td><td>{{ e.detail }}</td></tr>
+    {% endfor %}
+  </table>
+</div>
+{% endif %}
+<div class="card" style="border-color:#7f1d1d">
+  <h2>Danger zone</h2>
+  <form method="post" action="/app/delete-account" class="inline-form"
+        onsubmit="return confirm('Delete your account and ALL your data? This cannot be undone.')">
+    <input type="hidden" name="csrf" value="{{ csrf }}">
+    <input name="password" type="password" placeholder="Confirm with your password" required>
+    <button class="btn btn-danger" type="submit">Delete account & data</button>
+  </form>
+  <p class="dim">GDPR: removes your user record and every object you created — immediate and irreversible.</p>
+</div>
+{% endblock %}

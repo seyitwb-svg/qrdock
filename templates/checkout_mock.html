@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Checkout — {{ product.name }}{% endblock %}
+{% block content %}
+<div class="card narrow">
+  <h1>Checkout (test mode)</h1>
+  <p>You chose <b>{{ plan.name }}</b> — {{ plan.price }}.</p>
+  <p class="dim">Test checkout — no real payment is processed. In production this step
+  is handled by Stripe.</p>
+  <form method="post" action="/billing/mock-pay">
+    <input type="hidden" name="csrf" value="{{ csrf }}">
+    <input type="hidden" name="plan" value="{{ plan.id }}">
+    <label>Card number <input value="4242 4242 4242 4242" disabled></label>
+    <button class="btn" type="submit">Pay {{ plan.price }} (test)</button>
+  </form>
+  <p class="dim"><a href="/pricing">Back to pricing</a></p>
+</div>
+{% endblock %}

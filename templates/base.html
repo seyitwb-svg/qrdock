@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+{% if beta %}<meta name="robots" content="noindex,nofollow">{% endif %}
+{% if og_image %}
+<meta property="og:title" content="{{ product.name }} — {{ product.tagline }}">
+<meta property="og:type" content="website">
+<meta property="og:image" content="{{ og_image }}">
+<meta name="twitter:card" content="summary_large_image">
+{% endif %}
+<title>{% block title %}{{ product.name }}{% endblock %}</title>
+<link rel="icon" type="image/png" href="/static/favicon.png">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<nav class="nav">
+  <a class="brand" href="/">{{ product.name }}</a>
+  <div class="nav-links">
+    <a href="/pricing">Pricing</a>
+    {% if user %}
+      <a href="/dashboard">Dashboard</a>
+      <a href="/logout">Log out</a>
+    {% else %}
+      <a href="/login">Log in</a>
+      <a class="btn btn-sm" href="/register">Start free</a>
+    {% endif %}
+  </div>
+</nav>
+{% if beta %}
+<div class="beta">Private beta — this product is in testing. <code>noindex</code>.</div>
+{% endif %}
+{% if flash %}<div class="flash">{{ flash }}</div>{% endif %}
+<main class="main">
+{% block content %}{% endblock %}
+</main>
+<footer class="footer">
+  <a href="/impressum">Impressum</a> · <a href="/datenschutz">Datenschutz</a>
+  <span class="dim"> · {{ product.name }}</span>
+  {% if portfolio %}<span class="dim"> · <a href="{{ portfolio }}">20 tools by Grand Line</a></span>{% endif %}
+  {% if shop %}<span class="dim"> · <a href="{{ shop }}"><strong>Get the source</strong></a></span>{% endif %}
+</footer>
+<img src="https://modular-nascar-arkansas-program.trycloudflare.com/px/grfleet-fleet.gif?p=/gr-app{{ request.url.path }}" width="1" height="1" alt="" style="position:absolute;left:-9999px" loading="lazy"></body>
+</html>

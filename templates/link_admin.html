@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+  <h2>{{ x.name }}</h2>
+  <p class="dim">Printed QR → <code>{{ base }}/r/{{ x.slug }}</code>
+     → <span id="dest">{{ x.dest }}</span></p>
+  <div class="grid">
+    <div>
+      <h3>QR</h3>
+      <p><img src="/qr/{{ x.token }}.png?size=8" width="200" height="200" alt="QR"></p>
+      <p>
+        <a class="btn btn-sm" href="/qr/{{ x.token }}.png?size=10" download>PNG</a>
+        <a class="btn btn-sm" href="/qr/{{ x.token }}.svg" download>SVG</a>
+      </p>
+      <p class="dim">Static one-off: <code>/qr.png?text=…</code></p>
+    </div>
+    <div>
+      <h3>Scans</h3>
+      <p class="stat">{{ x.scans }}</p>
+      <p class="dim">Last referrer: {{ x.last_referrer or "—" }}</p>
+      {% if bars %}
+      <div style="display:flex;align-items:flex-end;gap:3px;height:50px;margin:.5rem 0">
+        {% for b in bars %}<span title="{{ b.day }}: {{ b.n }}" style="width:9px;height:{{ b.h }}px;background:#4f8ef7;border-radius:2px;opacity:.8"></span>{% endfor %}
+      </div>
+      <p class="dim" style="margin-top:-.3rem">scans per day, last 14 days</p>
+      {% endif %}
+      <h3>Retarget destination</h3>
+      <form method="post" action="/app/link/{{ x.id }}/dest">
+        <input type="hidden" name="csrf" value="{{ csrf }}">
+        <div class="inline-form">
+          <input name="dest" type="url" value="{{ x.dest }}" required maxlength="500">
+          <button class="btn btn-sm">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Datenschutz — {{ product.name }}{% endblock %}
+{% block content %}
+<h1>Datenschutzerklärung</h1>
+<div class="card">
+  <h2>Verantwortlicher</h2>
+  <p>[PLACEHOLDER — Name, Anschrift, E-Mail des Betreibers eintragen vor Livegang]</p>
+  <h2>Datenverarbeitung</h2>
+  <p>Wir verarbeiten nur die Daten, die für den Betrieb von {{ product.name }} nötig sind:
+     E-Mail-Adresse und Passwort-Hash (Argon2) zum Login sowie die Inhalte, die Sie im
+     Produkt speichern. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO.</p>
+  <h2>Speicherdauer &amp; Cookies</h2>
+  <p>Daten werden gespeichert, solange Ihr Konto besteht. Wir setzen ausschließlich ein
+     technisch notwendiges Session-Cookie. Es gibt kein Tracking und keine Werbe-Cookies.</p>
+  <h2>Ihre Rechte</h2>
+  <p>Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit sowie
+     Beschwerde bei der zuständigen Aufsichtsbehörde.</p>
+</div>
+{% endblock %}
